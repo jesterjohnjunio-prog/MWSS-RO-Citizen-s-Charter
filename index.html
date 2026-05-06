@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>MWSS RO | Citizen's Charter 2026</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8f9fc 0%, #eef2f8 100%);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      color: #0b1e33;
+    }
+
+    .app-container {
+      max-width: 1300px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2.5rem;
+      box-shadow: 0 25px 50px rgba(0, 20, 50, 0.1), 0 10px 25px rgba(0,0,0,0.05);
+      padding: 2rem 2.5rem 3rem;
+    }
+
+    /* header with logo */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 2px solid #e9c46a;
+      padding-bottom: 1.5rem;
+    }
+
+    .logo img {
+      height: 70px;
+      width: auto;
+      object-fit: contain;
+      background: transparent;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .logo-fallback {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      background: #0a2f44;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 18px;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .logo-fallback span {
+      color: #e6b422;
+    }
+
+    .title-section h1 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: #0a2f44;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+
+    .title-section .sub {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #b68b2c;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.2rem;
+    }
+
+    /* services grid */
+    .services-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin: 2rem 0 2.8rem;
+    }
+
+    .column {
+      flex: 1 1 350px;
+      background: #f7f9fd;
+      border-radius: 2rem;
+      padding: 1.5rem 1.3rem;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.03);
+      border: 1px solid #e8edf5;
+    }
+
+    .column h2 {
+      font-size: 1.4rem;
+      font-weight: 650;
+      color: #0a2f44;
+      margin-bottom: 1.3rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid #e6b422;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .service-btn {
+      background: white;
+      border: 1px solid #dce3f0;
+      padding: 0.85rem 1.2rem;
+      border-radius: 1.2rem;
+      font-weight: 550;
+      color: #1e3b5c;
+      text-align: left;
+      transition: 0.2s ease;
+      cursor: pointer;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      word-break: break-word;
+    }
+
+    .service-btn:hover {
+      background: #e6b422;
+      border-color: #c99b1e;
+      color: #0a2f44;
+      box-shadow: 0 12px 18px -8px rgba(198, 160, 30, 0.35);
+      transform: translateY(-2px);
+      font-weight: 600;
+    }
+
+    .service-btn .tag {
+      font-size: 0.68rem;
+      background: #e6b422;
+      color: #0a2f44;
+      padding: 0.15rem 0.6rem;
+      border-radius: 20px;
+      margin-left: auto;
+      font-weight: 650;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .service-btn:hover .tag {
+      background: #0a2f44;
+      color: white;
+    }
+
+    /* detail panel */
+    .detail-card {
+      background: #ffffff;
+      border: 1px solid #e6eefc;
+      border-radius: 2rem;
+      padding: 2rem 2rem 1.8rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 18px 30px -12px rgba(0,32,64,0.08);
+      display: none;
+    }
+
+    .detail-card.active {
+      display: block;
+    }
+
+    .detail-header {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      background: #f0f4fe;
+      padding: 1rem 1.5rem;
+      border-radius: 1.5rem;
+    }
+
+    .detail-header h3 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #0a2f44;
+      flex: 1;
+    }
+
+    .meta-badge {
+      background: #0a2f44;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .info-block {
+      background: #fafcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin: 1.2rem 0;
+    }
+
+    .info-block h4 {
+      color: #0a2f44;
+      margin-bottom: 0.5rem;
+    }
+
+    .requirements-list {
+      list-style-type: none;
+      margin-top: 0.6rem;
+    }
+    .requirements-list li {
+      margin-bottom: 0.5rem;
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .requirements-list li::before {
+      content: "•";
+      color: #b68b2c;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .btn-back {
+      background: none;
+      border: 2px solid #b68b2c;
+      color: #0a2f44;
+      padding: 0.6rem 1.8rem;
+      border-radius: 2.5rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.95rem;
+    }
+    .btn-back:hover {
+      background: #e6b422;
+      border-color: #b68b2c;
+    }
+
+    .footer-note {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #5f6b7a;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .app-container {
+        padding: 1.5rem 1.2rem;
+      }
+      .detail-header h3 {
+        font-size: 1.4rem;
+      }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  <!-- HEADER WITH LOGO -->
+  <div class="header">
+    <div class="logo">
+      <!-- UPDATE: Use the downloaded secondary logo file. Save the file as mwss-logo-secondary.png in the same folder -->
+      <img src="mwss-logo-secondary.png" alt="MWSS Regulatory Office Logo" 
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="logo-fallback">
+        <span>MWSS</span> RO
+      </div>
+    </div>
+    <div class="title-section">
+      <h1>MWSS Regulatory Office</h1>
+      <div class="sub">Citizen's Charter 2026 · 1st Edition</div>
+    </div>
+  </div>
+
+  <!-- SERVICE SELECTION PANEL -->
+  <div class="services-grid" id="servicesGrid">
+    <!-- Left column: External Services -->
+    <div class="column">
+      <h2>🌐 External Services</h2>
+      <div class="service-list">
+        <button class="service-btn" onclick="showDetail('ext1')">Receiving of Incoming Documents <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('ext2')">Filing of Rate Adjustment Application <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('ext3')">Filing of Request for Approval of ALAP <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('ext4')">Filing of Request for Approval of Concessionaire Loan <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('ext5')">Hiring of Plantilla Personnel <span class="tag">Highly Technical</span></button>
+        <button class="service-btn" onclick="showDetail('ext6')">Hiring of Contract of Service Provider <span class="tag">Highly Technical</span></button>
+        <button class="service-btn" onclick="showDetail('ext7')">Customer Complaints - Walk In <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('ext8')">Customer Complaints - Email/Mail <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('ext9')">Request for Water Sampling <span class="tag">Highly Technical</span></button>
+      </div>
+    </div>
+    <!-- Right column: Internal Services & Mixed -->
+    <div class="column">
+      <h2>🏛️ Internal / Mixed Services</h2>
+      <div class="service-list">
+        <button class="service-btn" onclick="showDetail('int1')">Retrieval of Official Documents <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('int2')">ICT Infrastructure Corrective Maintenance <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('int3')">Website Development and Maintenance <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('int4')">GovMail - New Email Account <span class="tag">Complex</span></button>
+        <button class="service-btn" onclick="showDetail('int5')">GovMail - Password Reset <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('int6')">GovMail - Storage Increase <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('int7')">Reimbursement from Petty Cash <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('int8')">Request & Liquidation of Cash Advance <span class="tag">Complex</span></button>
+        <button class="service-btn" onclick="showDetail('int9')">Liquidation of Cash Advance <span class="tag">Highly Technical</span></button>
+        <button class="service-btn" onclick="showDetail('int10')">Processing of Employment Records <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('int11')">Local Training Procedure <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('int12')">Procurement - Competitive Bidding <span class="tag">Highly Technical</span></button>
+        <button class="service-btn" onclick="showDetail('int13')">Procurement - Alternative Methods <span class="tag">Highly Technical</span></button>
+        <button class="service-btn" onclick="showDetail('int14')">Provision of Transport Services <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('int15')">Issuance of PAR / ICS <span class="tag">Simple</span></button>
+        <button class="service-btn" onclick="showDetail('int16')">Legal Documents / Opinions (Complex) <span class="tag">Complex</span></button>
+        <button class="service-btn" onclick="showDetail('int17')">Legal Documents / Opinions (Highly Technical) <span class="tag">Highly Technical</span></button>
+        <button class="service-btn" onclick="showDetail('mixed1')">Processing of Payment of Claims <span class="tag">Highly Technical</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DYNAMIC DETAIL VIEW -->
+  <div id="detailContainer" class="detail-card">
+    <div id="detailContent"></div>
+    <button class="btn-back" onclick="hideDetail()">← Back to all services</button>
+  </div>
+  <div class="footer-note">
+    MWSS Regulatory Office · Katipunan Ave., Balara, Quezon City
+  </div>
+</div>
+
+<script>
+  // Complete service data matching all buttons
+  const serviceData = {
+    // External Services
+    ext1: {
+      title: 'Receiving of Incoming Documents',
+      office: 'Office of the Chief Regulator - Central Records Office',
+      classification: 'Simple',
+      type: 'G2B - Government to Business / G2C - Government to Citizen / G2G - Government to Government',
+      who: 'All',
+      checklist: [
+        'Document (One (1) original copy and one (1) receiving copy)',
+        'Complete attachment (if necessary)'
+      ],
+      steps: [
+        'Client submits the documents to Central Records Office.',
+        'The Records Officer/Administrative Assistant will check the completeness of documents.',
+        'Receive the document and stamp "RECEIVED" the duplicate copy and return to the client.',
+        'Scan the document to generate an electronic copy and encode in the Online Tracking System.',
+        'Forward to Head Technical Assistant for review.',
+        'Accomplish Client Satisfaction Measurement (Feedback) form.'
+      ],
+      processingTime: '30 minutes',
+      fees: 'None'
+    },
+    ext2: {
+      title: 'Filing of Rate Adjustment Application',
+      office: 'Office of the Chief Regulator - Central Records Office; Regulation Area-in-charge (e.g., OCR, FRA, TRA, CSR, ALA)',
+      classification: 'Simple',
+      type: 'G2B - Government to Business',
+      who: 'Concessionaires: Manila Water Company, Inc. and Maynilad Water Services, Inc.',
+      checklist: [
+        'Application Letter for review/approval/endorsement of Rate Adjustment addressed to Chief Regulator (1 Original copy or 1 Electronic copy)',
+        'Attachment/s as prescribed depending on type of Rate Adjustment Application (e.g., Adjustment of Standard Rates)',
+        'For ASR: Table of Standard Rates for Publication (Tariff Table), Computation of WARI',
+        'For Rate Rebasing: Business Plan',
+        'For EPA: EPA calculation, supporting documents',
+        'For FCDA: FCDA calculation, Documentary Requirements per Guidelines',
+        'MWSS RO may require additional documents based on the proposal.'
+      ],
+      steps: [
+        'Submit the Rate Adjustment Application to the Central Records Office (CRO).',
+        'CRO acknowledges receipt and forwards to Regulation Area/Department-in-charge.',
+        'Area checks completeness of basic documents submitted and provides feedback to CRO.',
+        'If complete, stamp "RECEIVED" the duplicate copy and return to applicant.',
+        'Otherwise, return all documents with list of missing basic documents.',
+        'Client accomplishes feedback form.'
+      ],
+      processingTime: 'Approximately 40 minutes for preliminary evaluation',
+      fees: 'None'
+    },
+    ext3: {
+      title: 'Filing of Request for the Approval of Annual Loan Availment Plan (ALAP)',
+      office: 'Office of the Chief Regulator - Central Records Office; Financial Regulation Area - Financial Audit and Asset Monitoring Department',
+      classification: 'Simple',
+      type: 'G2B - Government to Business',
+      who: 'Concessionaires: Manila Water Company, Inc. and Maynilad Water Services, Inc.',
+      checklist: [
+        'Request Letter for the approval of the ALAP addressed to Chief Regulator (1 original copy or 1 electronic copy)',
+        'Annual Loan Availment Plan (ALAP) - Annex B of the Guidelines of the Borrowing Plan and Concessionaire Loans',
+        'MWSS RO may require submission of additional documents based on the Request Letter.'
+      ],
+      steps: [
+        'Submit request letter for approval of ALAP, including attachments to CRO.',
+        'CRO acknowledges receipt and forwards to Regulation Area/Department-in-charge (10 min).',
+        'FRA checks completeness of basic documents submitted (45 min).',
+        'If complete, stamp "RECEIVED" duplicate copy and return to applicant (10 min).',
+        'Convey acceptance or non-acceptance; if incomplete, advise to comply (10 min).',
+        'Client accomplishes feedback form (10 min).'
+      ],
+      processingTime: '1 hour, 15 minutes',
+      fees: 'None'
+    },
+    ext4: {
+      title: 'Filing of Request for the Approval of Concessionaire Loan',
+      office: 'Office of the Chief Regulator - Central Records Office; Financial Regulation Area - FAAMD',
+      classification: 'Simple',
+      type: 'G2B - Government to Business',
+      who: 'Concessionaires: Manila Water Company, Inc. and Maynilad Water Services, Inc.',
+      checklist: [
+        'Request Letter for the approval of the Concessionaire Loan addressed to Chief Regulator',
+        'Loan Proposal',
+        'Security arrangements, if applicable',
+        'Comparative Matrix of the Loan Terms and Conditions - Annex C of Guidelines',
+        'Other pertinent documents for verification',
+        'MWSS RO may require additional documents based on the Request Letter.'
+      ],
+      steps: [
+        'Submit request letter for approval of Concessionaire Loan, including attachments to CRO.',
+        'CRO acknowledges receipt (10 min).',
+        'FRA checks completeness of basic documents (45 min).',
+        'If complete, stamp "RECEIVED"; else return with list of missing documents (10 min).',
+        'Convey acceptance/non-acceptance to applicant (10 min).',
+        'Feedback form (10 min).'
+      ],
+      processingTime: '1 hour, 15 minutes',
+      fees: 'None'
+    },
+    ext5: {
+      title: 'Hiring of Plantilla Personnel',
+      office: 'Administration and Legal Affairs - Administration Department - Human Resources Unit',
+      classification: 'Highly Technical',
+      type: 'G2C - Government to Citizen',
+      who: 'All interested applicants',
+      checklist: [
+        'Letter of intent (1 Original Copy or 1 Photocopy or 1 Electronic Copy)',
+        'Duly accomplished and notarized Personal Data Sheet (PDS) with recent passport-sized picture (CS Form No. 212, Revised 2025) and Work Experience Sheet (WES)',
+        'Performance rating in the last rating period (if with previous government service or company)',
+        'Proof of eligibility, rating or professional license (CSC/PRC/Supreme Court)',
+        'Transcript of Records, Diploma, and Certificate of units earned in MS/MA or equivalent (if applicable)',
+        'Learning and Development (L&D) certificates',
+        'Upon Appointment: Additional requirements (PDS 3 copies, Medical Certificate, NBI Clearance, SALN, etc.)'
+      ],
+      steps: [
+        'Check MWSS RO website, Facebook page, bulletin board or CSC website for job vacancies and submit complete application requirements.',
+        'HRMPSB posts vacancy for 15 days; acknowledges application submissions.',
+        'Prepares longlist, evaluates Qualification Standards; may extend submission period.',
+        'HRMPSB approves shortlisted applicants; conducts background check.',
+        'Sends invitation for examinations and panel interview.',
+        'Administers psychometric/technical examinations and conducts panel interview.',
+        'Evaluates examinations, consolidates scores, presents Summary of Scores.',
+        'Prepares Placement List and HRMPSB Resolution; submits to Appointing Authority.',
+        'Chief Regulator considers and makes appointment.',
+        'Total processing: 66 days.'
+      ],
+      processingTime: '66 days',
+      fees: 'None'
+    },
+    ext6: {
+      title: 'Hiring of Individual Contract of Service Provider',
+      office: 'MWSS RO Administration Department - Human Resource Unit',
+      classification: 'Highly Technical',
+      type: 'G2C - Government to Citizen',
+      who: 'All interested applicants',
+      checklist: [
+        'Letter of intent',
+        'Fully accomplished and notarized PDS with recent passport-sized picture and Work Experience Sheet',
+        'Certified/authenticated Copy of Transcript of Records and Diploma',
+        'Copy of Training Certificates related to the applied position',
+        'Upon Hiring: Fit to work clearance, Valid Drug Test Result, PSA Birth Certificate, Valid NBI Clearance, BIR Requirements, PhilHealth registration, Notarized Contract (4 copies)'
+      ],
+      steps: [
+        'Check MWSS RO website/social media for vacancies; submit applications.',
+        'Selection Committee posts vacancies (15 days), acknowledges applications.',
+        'Prepares longlist, evaluates QS; may extend submission.',
+        'Approves shortlisted applicants; conducts background check.',
+        'Sends invitations for examinations and panel interview.',
+        'Administers examinations, conducts panel interview, evaluates results.',
+        'Consolidates scores, presents Summary of Scores.',
+        'Prepares Memorandum to hire, submits to Chief Regulator for consideration.',
+        'Total processing: 56 days.'
+      ],
+      processingTime: '56 days',
+      fees: 'None'
+    },
+    ext7: {
+      title: 'Filing of Customer Complaints against the Concessionaires - Walk In',
+      office: 'Customer Services Regulation Area',
+      classification: 'Simple Transaction',
+      type: 'Government to Citizen',
+      who: 'Customers of the Concessionaires, Manila Water and Maynilad',
+      checklist: [
+        'Accomplished Customer Complaint Form (1 Original Copy)',
+        'Complaint letter with: Contract Account Number, Account Name, Address, Contact Details (optional)',
+        'For Protested Bill: Statement of Account, Photo of actual meter (latest reading)',
+        'For Tampering Complaints: Statement of Account, Photo of meter, Notice of Assessment and Final Demand Letter',
+        'For Water Quality Complaints: Photo or video of dirty water from tap'
+      ],
+      steps: [
+        'Submit accomplished Customer Complaint Form (CCF) including supporting documents to CRO.',
+        'CRO receives and records CCF; provides copy to CSRA (15 min).',
+        'CSRA verifies completeness of information and supporting documents (10 min).',
+        'Gathers further details from Complainant (background, actions taken by Concessionaire).',
+        'Assesses and evaluates complaint to determine if Conciliation Meeting is needed (30 min).',
+        'Informs Complainant about MWSS RO Complaint Resolution Process.',
+        'Advises Complainant to wait for feedback on complaint status.',
+        'Client accomplishes feedback form (5 min).'
+      ],
+      processingTime: '1 Hour',
+      fees: 'None'
+    },
+    ext8: {
+      title: 'Filing of Customer Complaints against the Concessionaires - Through Emails, Registered Mails, etc.',
+      office: 'Customer Services Regulation Area',
+      classification: 'Simple Transaction',
+      type: 'Government to Citizen',
+      who: 'Customers of the Concessionaires, Manila Water and Maynilad',
+      checklist: [
+        'Complaint letter with: Contract Account Number, Account Name, Address, Contact Details',
+        'Supporting documents (same as Walk-In: billing statement, meter photo, assessment letter, etc.)'
+      ],
+      steps: [
+        'Send complaint letter including supporting documents to csr@ro.mwss.gov.ph or postal address.',
+        'Secretary receives, records, and acknowledges receipt; provides CRO with copy.',
+        'Encodes complaint details into Customer Complaint Database for Reference No. assignment.',
+        'Verifies completeness of information and supporting documents.',
+        'If incomplete, requests Customer to provide additional info/docs within 2 working days.',
+        'Evaluates and assesses complaint upon submission of complete documents (1 hr).',
+        'Prepares and sends endorsement letter to Concessionaire and concerned Regulation Area (2 hrs).',
+        'Prepares and sends Citizen\'s Charter info and feedback form to complainant (2 hrs).'
+      ],
+      processingTime: '1 working day and 5 hours',
+      fees: 'None'
+    },
+    ext9: {
+      title: 'Request for Water Sampling due to Water Quality Complaint',
+      office: 'Technical Regulation Area - Water Quality Control Department',
+      classification: 'Highly Technical',
+      type: 'G2C: Government to Citizen',
+      who: 'Customers of Maynilad and Manila Water within the Concession Area',
+      checklist: [
+        'Request/Letter with: Name, Complete Address, Contact Details',
+        'Routing Slip (provided by Central Records Office upon receipt)'
+      ],
+      steps: [
+        'Client submits request via email or hardcopy through Central Records Office.',
+        'CRO stamps "received" and forwards to OCR for review (30 min).',
+        'OCR reviews and routes to TRA for appropriate action (2 hrs).',
+        'TRA stamps received, records in database (10 min).',
+        'Submit to ODA for review and evaluation (10 min + 40 min).',
+        'WQCD reviews, evaluates, and assigns task (1 hr).',
+        'Check if customer location is part of Regulatory Sampling Point (30 min).',
+        'If water quality complaint, schedule sampling immediately: update schedule, check materials, coordinate with lab, prepare trip ticket (1 hr).',
+        'Client advised of status via email (30 min).',
+        'Water sampling and onsite tests: prepare materials, transport to site, conduct interview/surveillance, on-site tests, provide results to client.',
+        'Transport samples to laboratory for analysis.',
+        'Laboratory analysis: Bacteriological (3-7 days), Physico-chemical (7-15 days).',
+        'Review results, prepare report, upload to QR Code folder, send to client via email/registered mail.',
+        'Total: 11.10 days (min) to 23.625 days (max).'
+      ],
+      processingTime: '11.10 days (minimum) to 23.625 days (maximum)',
+      fees: 'None'
+    },
+    // Internal Services
+    int1: {
+      title: 'Retrieval of Official Documents',
+      office: 'Office of the Chief Regulator - Central Records Office',
+      classification: 'Simple',
+      type: 'G2G - Government to Government',
+      who: 'Regulation Areas',
+      checklist: ['Records Request Form (RRF)'],
+      steps: [
+        'Fill-out and submit the Records Request Form (RRF) to Central Records Office.',
+        'Records Officer checks the documentary requirement.',
+        'Retrieves the requested document/s.',
+        'Photocopies the requested document/s.',
+        'Releases the requested document; client signs RRF for acknowledgement.',
+        'Client accomplishes feedback form.'
+      ],
+      processingTime: '1 working day',
+      fees: 'None'
+    },
+    int2: {
+      title: 'Request for ICT Infrastructure Corrective Maintenance',
+      office: 'Office of the Chief Regulator - Management Information System Unit',
+      classification: 'Simple',
+      type: 'G2G - Government to Government',
+      who: 'Currently Employed MWSS RO Personnel (Full-time Employees) and Former Employees',
+      checklist: ['eService Request Form'],
+      steps: [
+        'Accomplish eService Request Form (eSRF) at the MIS Portal.',
+        'MIS Unit checks submitted request.',
+        'Evaluates the ICT problem encountered by the client.',
+        'Diagnoses and troubleshoots the ICT equipment.',
+        'Checks if the problem still persists.',
+        'Informs client of actions performed to resolve the problem.',
+        'Client accomplishes feedback form.'
+      ],
+      processingTime: '1 day',
+      fees: 'None'
+    },
+    int3: {
+      title: 'Request for Website Development and Maintenance',
+      office: 'Office of the Chief Regulator - Management Information System Unit',
+      classification: 'Simple',
+      type: 'G2G - Government to Government',
+      who: 'Currently Employed MWSS RO Talents (Full Time Employees)',
+      checklist: ['eService Request Form'],
+      steps: [
+        'Accomplish eService Request Form (eSRF) at the MIS Portal.',
+        'MIS evaluates submitted request.',
+        'Checks if materials comply with requirements for posting.',
+        'Identifies need to improve current layout based on requested content.',
+        'Uploads content using website\'s Content Management System.',
+        'Informs client that the website content update has been performed.',
+        'Client accomplishes feedback form.'
+      ],
+      processingTime: '1 day',
+      fees: 'None'
+    },
+    int4: {
+      title: 'Administration of GovMail Accounts - Request for New Email',
+      office: 'Office of the Chief Regulator - Management Information System Unit',
+      classification: 'Complex',
+      type: 'G2G - Government to Government',
+      who: 'Currently Employed MWSS RO Personnel (Full-time Employees)',
+      checklist: ['Request Letter', 'eService Request Form'],
+      steps: [
+        'Fill up eService Request form and submit letter requesting creation of new GovMail Account.',
+        'MIS evaluates request (1 hr).',
+        'Assigns GovMail account if license available (30 min).',
+        'If no license: Submits Letter of Intent to DICT requesting new accounts (2 hrs).',
+        'Accomplishes GovMail Account Template and submits to HR head for verification (3 hrs).',
+        'DICT evaluates and approves request for additional GovMail accounts (5 days).',
+        'Informs new user of GovMail credentials (10 min).',
+        'Orients new user on functions and capabilities of GovMail account (10 min).',
+        'Administers and maintains GovMail account (1 hr).',
+        'Client accomplishes feedback form (5 min).'
+      ],
+      processingTime: '6 days',
+      fees: 'None'
+    },
+    int5: {
+      title: 'Administration of GovMail Accounts - Request for Password Reset',
+      office: 'Office of the Chief Regulator - Management Information System Unit',
+      classification: 'Simple',
+      type: 'G2G - Government to Government / G2C - Government to Citizen',
+      who: 'Currently Employed MWSS RO Personnel (Full-time Employees) and Former Employees',
+      checklist: ['eService Request Form'],
+      steps: [
+        'Accomplish eService Request Form (eSRF) at the MIS Portal.',
+        'MIS evaluates request for GovMail password reset.',
+        'Resets password and creates temporary password.',
+        'Informs user of temporary password.',
+        'Client accomplishes feedback form.'
+      ],
+      processingTime: '1 hour',
+      fees: 'None'
+    },
+    int6: {
+      title: 'Administration of GovMail Accounts - Request for GovMail Storage Increase',
+      office: 'Office of the Chief Regulator - Management Information System Unit',
+      classification: 'Simple',
+      type: 'G2G - Government to Government',
+      who: 'Currently Employed MWSS RO Talents (Full Time Employees)',
+      checklist: ['Request Letter'],
+      steps: [
+        'Submit letter requesting increase in GovMail storage addressed to DICT.',
+        'MIS evaluates request (1 hr).',
+        'Submits request letter to DICT (1 hr).',
+        'DICT evaluates and approves requested storage increase (1 day).',
+        'DICT applies increase to GovMail account (1 day).',
+        'Informs user that increase has been applied (1 hr).',
+        'Client accomplishes feedback form (10 min).',
+        '*Timeline does not include DICT response period.'
+      ],
+      processingTime: '2 days, 3 hours, 10 minutes*',
+      fees: 'None'
+    },
+    int7: {
+      title: 'Reimbursement of Expenses from Petty Cash Fund',
+      office: 'Administration and Legal Affairs - Administration Department - Finance Unit',
+      classification: 'Simple',
+      type: 'G2G - Government to Government',
+      who: 'MWSS RO Employees',
+      checklist: [
+        'Approved Petty Cash Voucher Form',
+        'Approved Purchase Request (PR)',
+        'Canvass or quotation from at least three suppliers (for P2,000 and above)',
+        'Official Receipt (OR) / Sales Invoice (SI) / CERR / RER',
+        'Inspection and Acceptance Report (IAR)',
+        'Inventory Custodian Slip (ICS) for semi-expendable items',
+        'Pre-/Post-Repair Inspection Report (for vehicle repair)',
+        'Waste Materials Report (in case of replacement/repair)',
+        'Approved trip ticket (for gasoline/fuel)'
+      ],
+      steps: [
+        'Proceed to Fiscal Examiner A to request Petty Cash Voucher (PCV); fill out and have approved.',
+        'Submit approved PCV with all documentary requirements for reimbursement.',
+        'Fiscal Examiner validates/reviews PCV and attachments (30 min).',
+        'If properly accomplished and complete, pays reimbursement claims (10 min).',
+        'Records reimbursement and updates cash book.',
+        'Client accomplishes feedback form.'
+      ],
+      processingTime: '1 day, 40 minutes',
+      fees: 'None'
+    },
+    int8: {
+      title: 'Request and Liquidation of Cash Advance through Petty Cash',
+      office: 'Administration and Legal Affairs (ALA) - Administration Department - Finance Unit',
+      classification: 'Complex',
+      type: 'G2G - Government to Government',
+      who: 'MWSS RO Employees',
+      checklist: [
+        'Approved Petty Cash Voucher Form',
+        'Approved Purchase Request (PR) - upon issuance of petty cash',
+        'Canvass/quotation from at least 3 suppliers (P2,000+)',
+        'Official Receipt/SI/CERR/RER - within 5 days upon receipt of petty cash',
+        'IAR, ICS, Pre-/Post-Repair Inspection Report - within 5 days',
+        'Waste Materials Report, Trip ticket - within 5 days',
+        'For meals: Notice of meeting, Minutes, Attendance Sheet, OR',
+        'For travel: Toll/parking receipts, Trip ticket, Travel Insurance docs'
+      ],
+      steps: [
+        'Request PCV from Fiscal Examiner A; fill out and have approved (1 day).',
+        'Submit approved PCV with documentary requirements for cash advance.',
+        'Fiscal Examiner validates/reviews (30 min); grants cash advance (10 min).',
+        'Submit liquidation documents within 5 days after CA was granted.',
+        'Fiscal Examiner follows up, validates, reviews documents.',
+        'If complete, retrieves PCV and processes refund/reimbursement.',
+        'Records liquidation and updates cash book.',
+        'Client accomplishes feedback form.'
+      ],
+      processingTime: '6 days, 40 minutes',
+      fees: 'None'
+    },
+    int9: {
+      title: 'Liquidation of Cash Advance',
+      office: 'Administration and Legal Affairs - Administration Department - Finance Unit',
+      classification: 'Highly Technical',
+      type: 'G2G - Government to Government',
+      who: 'MWSS RO Employees, Petty Cash Custodians, Special Disbursing Officers (SDOs), Accountable Officers (AOs)',
+      checklist: [
+        'Report of Cash Disbursements (RCDisb) certified correct',
+        'Approved payrolls/vouchers acknowledged by payees',
+        'Duly verified/approved accomplishment report (for job order personnel)',
+        'Official Receipt/AR for refund of unclaimed salaries',
+        'Petty Cash Fund: Report on Paid Petty Cash Vouchers (RPPCV)',
+        'PCVs, Approved PR with certificate of Emergency Purchase',
+        'Bills, receipts, sales invoices, CERR/RER',
+        'IAR/Certificate of Inspection, Pre-/Post-Repair Inspection Report',
+        'WMR, Trip ticket, Canvass/Abstract, ICS, Meeting docs'
+      ],
+      steps: [
+        'SDO/AO submits Liquidation Report and documentary requirements to Record Officer.',
+        'Fiscal Examiner reviews and verifies completeness, legality, validity (15 min).',
+        'If complete and accurate, instructs SDO/AO to refund excess CA to Treasury (15 min).',
+        'Finance Officer B receives cash and issues Official Receipt (15 min).',
+        'Fiscal Examiner receives OR, attaches to Liquidation Report.',
+        'Chief Corporate Accountant reviews, signs, certifies CA is accounted (2 days).',
+        'Routes for approval: DA for ALA (1 day), Chief Regulator (1 day).',
+        'Chief Accountant prepares Journal Entry Voucher and records in accounting system (2 days).',
+        'Client accomplishes feedback form.'
+      ],
+      processingTime: '8 days, 1 hour, 15 minutes',
+      fees: 'None'
+    },
+    int10: {
+      title: 'Processing of Employment Records',
+      office: 'Administration Department - Human Resources Unit',
+      classification: 'Simple',
+      type: 'G2G - Government to Government',
+      who: 'Employees of the MWSS Regulatory Office',
+      checklist: ['HR eService Request Form (via Google Forms link)'],
+      steps: [
+        'Open new ticket and fill-out the HR eService Request Form.',
+        'Sr. IRM/IRM Officer receives form and sends acknowledgement (1 hr).',
+        'Retrieves requested record(s) from 201 files or HR Database (3 hrs).',
+        'Prints or photocopies original record(s), stamps with CTC if applicable (2 hrs).',
+        'Respective signatories certify authenticity by signing (2 days).',
+        'Claim requested records from HR Administrative Assistant; sign logbook (30 min).',
+        'Close ticket and accomplish CSM Survey form.'
+      ],
+      processingTime: '2 days, 6 hours, 30 minutes',
+      fees: 'None'
+    },
+    int11: {
+      title: 'Local Training Procedure',
+      office: 'Administration Department - Human Resources Unit',
+      classification: 'Simple',
+      type: 'G2G - Government to Government',
+      who: 'Employees of the MWSS Regulatory Office',
+      checklist: ['PDC Nomination Form (via Google Drive link)'],
+      steps: [
+        'Fill-out training nomination form.',
+        'Records Officer C receives form, encodes into L&D database (1 hr).',
+        'Sr. IRM Officer reviews per L&D Guidelines, prepares matrix (15 min).',
+        'Schedules/calls PDC meeting (2 days).',
+        'PDC convenes to evaluate nominations (1 day).',
+        'Sr. IRM Officer sends approved matrix for Chief Regulator approval (10 min).',
+        'Chief Regulator acts on nominations (1-3 days).',
+        'Sr. IRM Officer coordinates with L&D provider (2 hrs).',
+        'Prepares Office Order inclusive of budget and DTE (2 hrs).',
+        'DA for ALA and DM for Admin initial; Chief Regulator signs (1 day).',
+        'Records Officer disseminates Office Order (30 min).',
+        'Talent attends course, submits post-training report within 10 days.',
+        'Records Officer updates L&D record (30 min).'
+      ],
+      processingTime: '7 days, 8 hours, 15 minutes',
+      fees: 'None'
+    },
+    int12: {
+      title: 'Procurement of Goods through Competitive Bidding',
+      office: 'MWSS RO Bids and Awards Committee (BAC)',
+      classification: 'Highly Technical',
+      type: 'G2B - Government to Business',
+      who: 'Employees of the MWSS Regulatory Office (End-users)',
+      checklist: [
+        'Signed Memorandum from Chief Regulator approving procurement request',
+        'Approved APP or Supplemental APP',
+        'Technical Specification (goods) / Scope of Work (services/infra) / Terms of Reference (consulting)'
+      ],
+      steps: [
+        'End-user submits all documents to BAC Secretariat.',
+        'BAC Secretariat validates consistency with APP; provides contract number (30 min).',
+        'Reviews completeness of supporting documents (30 min).',
+        'Sets schedules for procurement activities (Pre-procurement to NOA) (119 days).',
+        'HoPE issues Notice of Award; requires Performance Security (1 day).',
+        'BAC Secretariat forwards draft contract to OGCC for review (7 days).',
+        'Upon OGCC review and performance security, facilitates contract signing (1 day).',
+        'HoPE issues Notice to Proceed (3 days).',
+        'Facilitates notarization of contracts (2 days).',
+        'Reproduces 4 copies of contract for distribution (3 days).'
+      ],
+      processingTime: '136 days, 1 hour',
+      fees: 'None'
+    },
+    int13: {
+      title: 'Purchase Request through Alternative Methods of Procurement',
+      office: 'Administration Department - Procurement Unit',
+      classification: 'Highly Technical',
+      type: 'G2B - Government to Business',
+      who: 'Employees of the MWSS Regulatory Office',
+      checklist: [
+        'Purchase Request (PR)',
+        'Copy of APP or Supplemental APP',
+        'Technical Specification / Scope of Work / Terms of Reference',
+        'Market Study and/or Justifications'
+      ],
+      steps: [
+        'End-user submits approved PR with complete attachments.',
+        'AO II/III validates consistency with APP; records in logbook (30 min).',
+        'Reviews completeness of documents (30 min).',
+        'Prepares BAC Requisition Form; recommends mode of procurement (12 days).',
+        'Chief Regulator approves (2 days).',
+        'AO prepares Request for Quotation (RFQ) (2 days).',
+        'Posts RFQ on PhilGEPS, website; sends to suppliers (4 days).',
+        'Receives, consolidates, reviews quotations (2 days).',
+        'Evaluates quotations, crafts Abstract of Quotation (3 days + 12 days).',
+        'Prepares Purchase Order/Contract (2 days).',
+        'PO/Contract forwarded for approvals (3 days).',
+        'Signed PO/Contract forwarded to winning supplier (3 days).',
+        'Transmits conformed PO/Contract to End-user (1 day).'
+      ],
+      processingTime: '45 days, 1 hour',
+      fees: 'None'
+    },
+    int14: {
+      title: 'Provision of Transport Services',
+      office: 'Administration Department - Property / General Service Unit',
+      classification: 'Simple',
+      type: 'G2G - Government to Government',
+      who: 'Employees of the MWSS Regulatory Office',
+      checklist: ['Driver\'s Trip Ticket (signed/approved by DM/DA/Chief Regulator)'],
+      steps: [
+        'Submit request/duly accomplished Driver\'s Trip Ticket indicating date, time, destination, and purpose.',
+        'Property Unit receives and logs request; verifies availability of pooled drivers.',
+        'Wait for confirmation; for administrative operations, await scheduling confirmation.'
+      ],
+      processingTime: '5 minutes (initial processing)',
+      fees: 'None'
+    },
+    int15: {
+      title: 'Issuance of Property Acknowledgement Receipt (PAR) / Inventory Custodian Slip (ICS)',
+      office: 'Administration and Legal Affairs - Administration Department - Property/General Service Unit',
+      classification: 'Simple',
+      type: 'G2G - Government to Government',
+      who: 'Currently Employed MWSS RO Talents (Full Time Employees)',
+      checklist: [
+        'Inspection and Acceptance Report',
+        'Purchase Order',
+        'Purchase Request',
+        'Sales Invoice/Delivery Receipt',
+        'Warranty Certificate'
+      ],
+      steps: [
+        'Request issuance of PAR/ICS.',
+        'Property Unit receives and reviews documents (15 min).',
+        'Checks property/equipment against specifications (30 min).',
+        'Prepares 3 copies of PAR/ICS, assigns series number, encodes to database (20 min).',
+        'Forwards PAR/ICS to accountable person for signature (15 min).',
+        'Places printed sticker for proper tagging (30 min).',
+        'Provides copies to Accountable Officer, Procurement Officer, and filing (5 min).',
+        'Client accomplishes feedback form (5 min).'
+      ],
+      processingTime: '2 hours',
+      fees: 'None'
+    },
+    int16: {
+      title: 'Request for the Preparation and Review of Legal Documents and Issuance of Legal Opinions and Position Papers (Complex)',
+      office: 'Legal Affairs (LA)',
+      classification: 'Complex',
+      type: 'G2G - Government to Government',
+      who: 'Regulation Areas and Committees of the MWSS RO',
+      checklist: [
+        'Duly signed Request or Memorandum detailing concerns, legal questions',
+        'Attachments: Legal documents to be reviewed, laws/rules highlighting provisions, correspondences from third parties, other necessary documents',
+        'Routing Slip'
+      ],
+      steps: [
+        'Submit request with complete attachments and Routing Slip.',
+        'LA stamps "RECEIVED", records in database, submits to DM for task assignment (30 min).',
+        'DM evaluates if within jurisdiction (15 min).',
+        'SCA studies, researches, reviews, prepares initial draft (4 days).',
+        'CCA performs first level review (2 days).',
+        'DM performs second level review (1 day).',
+        'DA for ALA performs final level and approval review (1 day).',
+        'Finalization of draft (15 min).',
+        'Send approved document to requesting Regulation Area; record as completed (30 min).'
+      ],
+      processingTime: '8 days, 1 hour, 30 minutes',
+      fees: 'None'
+    },
+    int17: {
+      title: 'Request for the Preparation and Review of Legal Documents and Issuance of Legal Opinions and Position Papers (Highly Technical)',
+      office: 'Legal Affairs (LA)',
+      classification: 'Highly Technical',
+      type: 'G2G - Government to Government',
+      who: 'Regulation Areas and Committees of the MWSS RO',
+      checklist: [
+        'Duly signed Request or Memorandum with legal questions',
+        'Attachments: Legal documents, laws/rules, correspondences',
+        'Routing Slip'
+      ],
+      steps: [
+        'Submit request with complete attachments.',
+        'LA stamps received, records, submits to DM (30 min).',
+        'DM evaluates jurisdiction (15 min).',
+        'SCA studies, researches, prepares initial draft (15 days).',
+        'CCA first level review (5 days).',
+        'DM second level review (3 days).',
+        'DA for ALA final level and approval review (2 days).',
+        'Finalization of draft (15 min).',
+        'Send copy to requesting party; record as completed (30 min).'
+      ],
+      processingTime: '25 days, 1 hour, 30 minutes',
+      fees: 'None'
+    },
+    mixed1: {
+      title: 'Processing of Payment of Claims',
+      office: 'Administration and Legal Affairs (ALA) - Administration Department - Finance Unit',
+      classification: 'Highly Technical',
+      type: 'G2G - Government to Government (External/Internal)',
+      who: 'All (Suppliers, Contractors, Employees)',
+      checklist: [
+        'Certified copy of approved APP/Supplemental APP page (First Payment)',
+        'Certified copy of submitted Contract/PO stamped "Received" by COA (First Payment)',
+        'Copy of TOR/Contract, Curriculum Vitae of Consultant (First Payment)',
+        'Request for Payment, Letter request from supplier, Billing Statement',
+        'Reports/Deliverables, Statement of Payments & Balances',
+        'Certificate of Completion, Performance Rating (Final Payment)',
+        'Various specific requirements per claim type (see Charter for full list)'
+      ],
+      steps: [
+        'Claimant transmits complete, valid, proper, and legal supporting documents to Records Officer.',
+        'Records Officer receives and transmits to Fiscal Examiner A.',
+        'Fiscal Examiner checks completeness, legality, validity per auditing rules (2 days).',
+        'If deficient, returns to claimant for compliance.',
+        'Fiscal Examiner prepares Disbursement Voucher (DV), computes taxes (2 hrs).',
+        'Forwards DV to concerned DM/DA for Box A signature (15 min + 1 day).',
+        'Finance Officer B extracts tax withheld (1 hr).',
+        'Chief Corporate Accountant reviews, signs Box B, records in system (2 hrs).',
+        'Chief Regulator approves Box C (1 day).',
+        'Records Officer receives approved DV; forwards to Treasury for check preparation.',
+        'Finance Officer B prepares Check Voucher, check, BIR Form 2307 (30 min).',
+        'Records in check register; Chief Accountant records in system (15 min + 1 day).',
+        'DM/DA approves CV as to accounting/financial requirements (1 day).',
+        'Signing Authorities approve check (2 days).',
+        'Check released to claimant; issues Official Receipt (30 min).',
+        'Finance Officer stamps "paid", transmits documents to COA quarterly (2 days).'
+      ],
+      processingTime: '14 Days, 7 hours, 15 minutes',
+      fees: 'None'
+    }
+  };
+
+  function showDetail(serviceId) {
+    const data = serviceData[serviceId];
+    if (!data) return;
+
+    let html = `
+      <div class="detail-header">
+        <h3>${data.title}</h3>
+        <span class="meta-badge">${data.classification}</span>
+      </div>
+      <div class="info-block">
+        <p><strong>📌 Office/Division:</strong> ${data.office}</p>
+        <p><strong>📋 Type of Transaction:</strong> ${data.type}</p>
+        <p><strong>👥 Who may avail:</strong> ${data.who}</p>
+        <p><strong>⏱️ Processing Time:</strong> ${data.processingTime}</p>
+        <p><strong>💰 Fees:</strong> ${data.fees}</p>
+      </div>
+      <div class="info-block">
+        <h4>📎 Checklist of Requirements</h4>
+        <ul class="requirements-list">
+          ${data.checklist.map(item => `<li>${item}</li>`).join('')}
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>🔄 Client Steps / Agency Actions</h4>
+        <ol style="padding-left:1.4rem; margin-top:0.5rem;">
+          ${data.steps.map(step => `<li style="margin-bottom:0.4rem;">${step}</li>`).join('')}
+        </ol>
+      </div>
+    `;
+
+    document.getElementById('detailContent').innerHTML = html;
+    document.getElementById('detailContainer').classList.add('active');
+    document.getElementById('servicesGrid').style.display = 'none';
+    document.getElementById('detailContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function hideDetail() {
+    document.getElementById('detailContainer').classList.remove('active');
+    document.getElementById('servicesGrid').style.display = 'flex';
+    document.getElementById('servicesGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>
